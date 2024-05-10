@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url(bg.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
+            max-width: 600px;
+            width: 100%;
+            margin: 75px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            font-weight: 500;
+        }
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+        legend {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: xx-large;
+            color: #000000;
+            text-align: center;
+        }
+        .newInputGroup {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .newInputGroup label {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+        .newInputGroup i {
+            position: absolute;
+            left: 10px;
+            color: #000000;
+            font-size: 18px;
+            padding: 12px 0;
+        }
+        .newInputGroup input, .newInputGroup select, .newInputGroup textarea {
+            flex: 1;
+            padding: 12px 12px 12px 12px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .newInputGroup input[type="email"] {
+            width: 100%;
+        }
+        .newInputGroup input:focus, .newInputGroup select:focus, .newInputGroup textarea:focus {
+            border-color: #a3a4a4;
+            box-shadow: 0 0 5px rgba(93, 93, 93, 0.5);
+        }
+        .newInputGroup input.valid, .newInputGroup select.valid, .newInputGroup textarea.valid {
+            border-color: #2ecc71;
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+        }
+        .newInputGroup input.invalid, .newInputGroup select.invalid, .newInputGroup textarea.invalid {
+            border-color: #e74c3c;
+            box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+        }
+        textarea {
+            resize: none;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #5a5a5a;
+        }
+        #newOutput {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 3vh;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: fit-content;
+            margin-bottom: 5vh;
+        }
+        #my-account {
+            font-size: xx-large;
+        }
+        #email-add {
+            text-decoration: underline;
+        }
+        #profile-icon {
+            display: block;
+            margin: 0 auto;
+            font-size: 10vh;
+            color: #000000;
+        }
+        .my-account-info {
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <form id="newSignupForm">
+        <fieldset>
+            <legend>Sign Up</legend>
+            <div class="newInputGroup">
+                <i class="newTag"></i>
+                <input type="text" id="newName" placeholder="Name" required>
+            </div>
+            <div class="newInputGroup">
+                <i class="newUserIcon"></i>
+                <input type="text" id="newUsername" placeholder="Username" required>
+            </div>
+            <div class="newInputGroup">
+                <i class="newGenderIcon"></i>
+                <select id="newGender" required>
+                    <option value="" disabled selected>-- Gender --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Prefer not to mention">Prefer not to mention</option>
+                </select>
+            </div>
+            <div class="newInputGroup">
+                <i class="newLockIcon"></i>
+                <input type="password" id="newPassword" placeholder="Password" required>
+            </div>
+            <div class="newInputGroup">
+                <i class="newEmailIcon"></i>
+                <input type="email" id="newEmail" placeholder="Email Address" required>
+            </div>
+            <div class="newInputGroup">
+                <i class="newLocationIcon"></i>
+                <input type="text" id="newAddress" placeholder="Address" required>
+            </div>
+            <div class="newInputGroup">
+                <i class="newInterestIcon"></i>
+                <textarea id="newInterest" rows="3" placeholder="&#10;Interests" required></textarea>
+            </div>
+        </fieldset>
+        <div style="display: flex; justify-content: flex-end;">
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+    <div id="newOutput"></div>
+    <p>&copy; 2024 C.S. Aninon, 9 - K</p>
+
+    <script>
+        const newForm = document.getElementById('newSignupForm');
+        const newOutput = document.getElementById('newOutput');
+        const newPasswordInput = document.getElementById('newPassword');
+        const togglePassword = document.getElementById('togglePassword');
+
+        newForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            newOutput.innerHTML = `
+                <p><strong>Name:</strong> ${newForm.newName.value}</p>
+                <p><strong>Preferred Username:</strong> ${newForm.newUsername.value}</p>
+                <p><strong>Gender:</strong> ${newForm.newGender.value}</p>
+                <p><strong>Password:</strong> ${newForm.newPassword.value}</p>
+                <p><strong>Email Address:</strong> ${newForm.newEmail.value}</p>
+                <p><strong>Address:</strong> ${newForm.newAddress.value}</p>
+                <p><strong>Interests:</strong> ${newForm.newInterest.value}</p>
+            `;
+            newOutput.style.display = 'block';
+        });
+
+        newForm.addEventListener('reset', function() {
+            newOutput.innerHTML = '';
+            newOutput.style.display = 'none';
+            newInputs.forEach(input => {
+                input.classList.remove('valid');
+            });
+        });
+
+        const newInputs = document.querySelectorAll('.newInputGroup input, .newInputGroup select, .newInputGroup textarea');
+
+        newInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (input.checkValidity()) {
+                    input.classList.add('valid');
+                    input.classList.remove('invalid');
+                } else {
+                    input.classList.add('invalid');
+                    input.classList.remove('valid');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
